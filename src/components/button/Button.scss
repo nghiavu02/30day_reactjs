@@ -1,0 +1,19 @@
+.button{
+    margin: 10px;
+    display: inline-block;
+    padding: 10px 30px;
+    color: white;
+    background-color: #2979ff;
+    border: none;
+    border-radius: 8px;
+    width: 200px;
+    outline: none;
+    &--secondary{
+        background-color: white;
+        color: #2979ff;
+        border: 1px solid #2979ff;
+    }
+}
+.button:hover{
+    background-color: blueviolet;
+}
