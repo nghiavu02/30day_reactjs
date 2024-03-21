@@ -1,12 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
+
 // https://hn.algolia.com/api/v1/search?query=react
 const HackerNews = () => {
   const [hits, setHits] = useState([]);
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
-  const handleFetchData = async () => {
+  const handleFetchData = useRef({});
+  const [url, setUrl] = useState(
+    `https://hn.algolia.com/api/v1/search?query=''`
+  );
+  handleFetchData.current = async () => {
     setLoading(true);
     try {
       const response = await axios.get(
@@ -15,16 +20,19 @@ const HackerNews = () => {
       setTimeout(() => {
         setHits(response.data.hits);
         setLoading(false);
+        setErrorMessage("");
       }, 1000);
     } catch (error) {
       setLoading(false);
       setErrorMessage(`Error: ${error}`);
     }
   };
-  console.log(query);
+  // const handleUpdateSearch = lodash.debounce((e) => {
+  //   setQuery(e.target.value);
+  // }, 500);
   useEffect(() => {
-    handleFetchData();
-  }, [query]);
+    handleFetchData.current();
+  }, [url]);
   return (
     <div className="bg-white p-5 mx-auto rounded-lg shadow-md w-2/4">
       <div className="flex mb-5 gap-x-5">
@@ -37,6 +45,9 @@ const HackerNews = () => {
         <button
           className="bg-blue-700 text-white font-[600]  rounded-xl  flex-shrink-0 w-[150px] hover:opacity-80"
           value={query}
+          onClick={(e) =>
+            setUrl(`https://hn.algolia.com/api/v1/search?query=${query}`)
+          }
         >
           Search
         </button>

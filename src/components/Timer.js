@@ -12,6 +12,7 @@ const Timer = () => {
     clearInterval(timerRef.current);
     timerRef.current = null;
   };
+  console.log(timerRef);
   return (
     <div>
       <h3 className="text-[24px] mb-3">Timer: {timer || 0}s</h3>
