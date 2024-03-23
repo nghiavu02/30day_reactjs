@@ -1,10 +1,10 @@
-import LinkNewTab from "./components/LinkNewTab";
+import SignUpFormHook from "./components/form/SignUpFormHook";
 import "./index.scss";
 
 function App() {
   return (
     <div className="">
-      <LinkNewTab></LinkNewTab>
+      <SignUpFormHook></SignUpFormHook>
     </div>
   );
 }
